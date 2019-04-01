@@ -2,7 +2,7 @@ class Result {
   final int voteCount;
   final int id;
   final bool video;
-  final double voteAverage;
+  var voteAverage;
   final String title;
   final double popularity;
   final String posterPath;
@@ -12,6 +12,7 @@ class Result {
   final String backdropPath;
   final bool adult;
   final String overview;
+  final String releaseDate;
 
   Result(
       {this.voteCount,
@@ -26,29 +27,31 @@ class Result {
       this.genreIds,
       this.backdropPath,
       this.adult,
-      this.overview});
+      this.overview,
+      this.releaseDate});
 
   factory Result.fromJson(Map<String, dynamic> parsedJson) {
     var list = parsedJson['genre_ids'] as List;
+    print(list);
     List<int> genreList = [];
     for (int i = 0; i < list.length; i++) {
       genreList.add(list[i]);
     }
 
     return Result(
-      adult: parsedJson['adult'],
-      backdropPath: parsedJson['backdrop_path'],
-      genreIds: genreList,
-      id: parsedJson['id'],
-      originalLanguage: parsedJson['original_language'],
-      originalTitle: parsedJson['original_title'],
-      overview: parsedJson['overview'],
-      popularity: parsedJson['popularity'],
-      posterPath: parsedJson['poster_path'],
-      title: parsedJson['title'],
-      video: parsedJson['video'],
-      voteAverage: parsedJson['vote_average'],
-      voteCount: parsedJson['vote_count'],
-    );
+        voteCount: parsedJson['vote_count'],
+        id: parsedJson['id'],
+        video: parsedJson['video'],
+        voteAverage: parsedJson['vote_average'],
+        title: parsedJson['title'],
+        popularity: parsedJson['popularity'],
+        posterPath: parsedJson['poster_path'],
+        originalTitle: parsedJson['original_title'],
+        originalLanguage: parsedJson['original_language'],
+        genreIds: genreList,
+        backdropPath: parsedJson['backdrop_path'],
+        adult: parsedJson['adult'],
+        overview: parsedJson['overview'],
+        releaseDate: parsedJson['release_date']);
   }
 }
